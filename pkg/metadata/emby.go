@@ -1,7 +1,7 @@
 package metadata
 
 import (
-	"better-av-tool/pkg/scraper"
+	"dmm-scraper/pkg/scraper"
 	"encoding/xml"
 	"fmt"
 	"os"

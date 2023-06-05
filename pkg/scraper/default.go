@@ -1,9 +1,9 @@
 package scraper
 
 import (
-	"better-av-tool/pkg/archive"
-	myclient "better-av-tool/pkg/client"
 	"bytes"
+	"dmm-scraper/pkg/archive"
+	myclient "dmm-scraper/pkg/client"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -155,6 +155,12 @@ func GetOutputPath(s Scraper, conf string) string {
 	}
 	p = strings.Replace(p, "{maker}", s.GetMaker(), 1)
 	p = strings.Replace(p, "{num}", s.GetFormatNumber(), 1)
-
+	// cut the title into 30 characters if it's too long
+	if len(s.GetTitle()) > 30 {
+		FixedTitle := s.GetTitle()[:30]
+		p = strings.Replace(p, "{title}", FixedTitle, 1)
+	} else {
+		p = strings.Replace(p, "{title}", s.GetTitle(), 1)
+	}
 	return strings.Replace(p, "//", "/", -1)
 }
